@@ -34,7 +34,7 @@ def gerar_desafios_ia(self, video_id, contexto_video):
     }
     
     payload = {
-        "model": "openai/gpt-4o-mini",
+        "model": "meta-llama/llama-3.2-3b-instruct:free",
         "messages": [
             {"role": "system", "content": "Você é um gerador de quizzes. Retorne APENAS um JSON válido com uma lista de 5 desafios sobre o tema fornecido. Formato: [{'pergunta': '...', 'resposta_correta': '...', 'alternativas': [...]}]"},
             {"role": "user", "content": f"Gere desafios para o seguinte contexto de vídeo: {contexto_video}"}

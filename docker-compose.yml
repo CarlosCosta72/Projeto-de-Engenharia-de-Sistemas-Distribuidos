@@ -1,40 +1,29 @@
 version: '3.8'
 
 services:
-  # Banco de Dados de Fallback
-  db:
-    image: postgres:15-alpine
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-
-  # Pool de Desafios e Broker de Mensageria
+  # Pool de Desafios e Broker de Mensageria (Mantemos local)
   redis:
     image: redis:7-alpine
     ports:
       - "6379:6379"
-
+  
   # API Principal
   api:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    # Agora ele cria as tabelas no Supabase antes de rodar o servidor!
+    command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/app
     ports:
       - "8000:8000"
     environment:
       - CELERY_BROKER_URL=redis://redis:6379/0
-      - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      # Conectando direto no Supabase:
+      - DATABASE_URL=postgresql://postgres:iIUF6N5we5expC52@db.xmxddvlonfhaqprdubar.supabase.co:5432/postgres
     depends_on:
-      - db
       - redis
 
-  # Worker Assíncrono
+  # Worker Assíncrono (Processa a IA em background)
   worker:
     build: .
     command: celery -A core worker --loglevel=info
@@ -42,11 +31,11 @@ services:
       - .:/app
     environment:
       - CELERY_BROKER_URL=redis://redis:6379/0
-      - DATABASE_URL=postgres://admin:adminpassword@db:5432/desafios_db
+      # Conectando direto no Supabase:
+      - DATABASE_URL=postgresql://postgres:iIUF6N5we5expC52@db.xmxddvlonfhaqprdubar.supabase.co:5432/postgres
+      # Lembre-se de configurar a chave no seu arquivo .env
       - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
     depends_on:
-      - db
       - redis
 
-volumes:
-  postgres_data:
+# Como o banco foi pra nuvem, não precisamos mais do bloco 'volumes' aqui embaixo!

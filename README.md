@@ -20,3 +20,7 @@ pool assíncrono com fallback para banco estático.
 - Igor Wanderley
 - Joás Gomes
 - Kalil Teotonio
+
+
+iIUF6N5we5expC52
+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
