@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,8 +20,9 @@
         }
     </script>
 </head>
+
 <body class="bg-gray-50 font-sans text-gray-900 antialiased selection:bg-primary selection:text-white">
-    
+
     <!-- Navbar -->
     <nav class="bg-white shadow-sm border-b border-gray-100 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -28,20 +30,16 @@
                 <!-- Logo -->
                 <div class="flex items-center">
                     <a href="/" class="flex-shrink-0 flex items-center gap-2">
-                        <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                            </path>
                         </svg>
                         <span class="text-2xl font-bold text-gray-800 tracking-tight">
-                            Desaf<span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">IAr</span>
+                            Desaf<span
+                                class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">IAr</span>
                         </span>
-                    </a>
-                </div>
-                <!-- Links (Desktop) -->
-                <div class="hidden sm:flex sm:items-center sm:space-x-8">
-                    <a href="#como-funciona" class="text-sm font-medium text-gray-500 hover:text-gray-900 transition flex items-center">Como Funciona</a>
-                    <a href="#" class="text-sm font-medium text-gray-500 hover:text-gray-900 transition">Entrar</a>
-                    <a href="#" class="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-primary hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-all">
-                        Começar Agora
                     </a>
                 </div>
             </div>
@@ -52,63 +50,48 @@
     <main class="relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-24 sm:pt-24 sm:pb-32">
             <div class="text-center relative z-10">
-                <div class="inline-flex items-center px-4 py-1.5 rounded-full border border-gray-200 bg-white text-sm font-medium text-gray-600 mb-8 shadow-sm">
+                <div
+                    class="inline-flex items-center px-4 py-1.5 rounded-full border border-gray-200 bg-white text-sm font-medium text-gray-600 mb-8 shadow-sm">
                     <span class="flex w-2 h-2 bg-green-500 rounded-full mr-2 animate-pulse"></span>
                     O poder da IA aplicado ao aprendizado
                 </div>
-                
-                <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl max-w-4xl mx-auto">
+
+                <h1
+                    class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl max-w-4xl mx-auto">
                     Transforme seus vídeos em
-                    <span class="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary pb-2">
+                    <span
+                        class="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary pb-2">
                         Desafios Interativos
                     </span>
                 </h1>
-                
+
                 <p class="mt-6 max-w-2xl mx-auto text-base text-gray-500 sm:text-lg md:text-xl">
-                    Faça o upload do seu conteúdo. Nossa Inteligência Artificial no backend analisa o vídeo, extrai o contexto e gera instantaneamente perguntas, quizzes e desafios para turbinar a sua plataforma.
+                    Faça o upload do seu conteúdo. Nossa Inteligência Artificial no backend analisa o vídeo, extrai o
+                    contexto e gera instantaneamente perguntas, quizzes e desafios para turbinar a sua plataforma.
                 </p>
-                
+
                 <div class="mt-10 max-w-sm mx-auto sm:max-w-none sm:flex sm:justify-center gap-4">
-                    <a href="#" class="w-full sm:w-auto flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-primary hover:bg-indigo-700 md:py-4 md:text-lg md:px-10 shadow-lg shadow-indigo-200 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200">
-                        <svg class="w-5 h-5 mr-2 -ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                    <a href="{% url 'video_form' %}"
+                        class="w-full sm:w-auto flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-lg text-white bg-primary hover:bg-indigo-700 md:py-4 md:text-lg md:px-10 shadow-lg shadow-indigo-200 hover:shadow-xl hover:-translate-y-0.5 transition-all duration-200">
+                        <svg class="w-5 h-5 mr-2 -ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                            </path>
                         </svg>
                         Cadastrar Novo Vídeo
                     </a>
-                    <a href="#como-funciona" class="w-full sm:w-auto mt-3 sm:mt-0 flex items-center justify-center px-8 py-3 border border-gray-300 text-base font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10 transition-all duration-200">
-                        Ver Exemplo
+                    <a href="{% url 'video_detail' 1 %}"
+                        class="w-full sm:w-auto mt-3 sm:mt-0 flex items-center justify-center px-8 py-3 border border-gray-300 text-base font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10 transition-all duration-200">
+                        Listar videos
                     </a>
                 </div>
             </div>
 
             <!-- Background decorative elements -->
             <div class="absolute top-0 -z-10 transform-gpu overflow-hidden blur-3xl opacity-30" aria-hidden="true">
-                <div class="aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
-            </div>
-        </div>
-
-        <!-- Dashboard/Video Preview Mockup -->
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-            <div class="rounded-xl shadow-2xl overflow-hidden bg-white/50 backdrop-blur-sm border border-gray-200/50 p-2">
-                <div class="rounded-lg bg-gray-900 aspect-video flex items-center justify-center relative group cursor-pointer overflow-hidden shadow-inner">
-                    <!-- Play button overlay -->
-                    <div class="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/50 transition-all duration-300">
-                        <div class="w-20 h-20 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 ring-1 ring-white/50">
-                            <svg class="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
-                        </div>
-                    </div>
-                    <!-- Fake UI elements on top of video -->
-                    <div class="absolute bottom-6 right-6 bg-white/90 backdrop-blur rounded-lg p-4 shadow-lg animate-bounce duration-1000">
-                        <div class="flex items-center gap-3">
-                            <div class="w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                            </div>
-                            <div class="text-sm">
-                                <p class="font-bold text-gray-900">IA Concluída</p>
-                                <p class="text-gray-500">5 desafios gerados!</p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="aspect-[1155/678] w-[72.1875rem] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30"
+                    style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)">
                 </div>
             </div>
         </div>
@@ -126,42 +109,71 @@
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-10 relative">
                 <!-- Connecting line for desktop -->
-                <div class="hidden md:block absolute top-12 left-1/6 right-1/6 h-0.5 bg-gray-100 -z-10" style="width: 66%; left: 16%;"></div>
+                <div class="hidden md:block absolute top-12 left-1/6 right-1/6 h-0.5 bg-gray-100 -z-10"
+                    style="width: 66%; left: 16%;"></div>
 
                 <!-- Step 1 -->
                 <div class="relative text-center">
-                    <div class="w-24 h-24 mx-auto bg-white border-4 border-indigo-50 shadow-sm rounded-full flex items-center justify-center mb-6 relative">
+                    <div
+                        class="w-24 h-24 mx-auto bg-white border-4 border-indigo-50 shadow-sm rounded-full flex items-center justify-center mb-6 relative">
                         <div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center text-primary">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                                </path>
+                            </svg>
                         </div>
-                        <div class="absolute -top-2 -right-2 w-8 h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-md">1</div>
+                        <div
+                            class="absolute -top-2 -right-2 w-8 h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-md">
+                            1</div>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-2">Upload do Vídeo</h3>
-                    <p class="text-gray-500">Adicione o link ou faça o upload direto do arquivo. Suportamos diversos formatos e tamanhos para facilitar sua vida.</p>
+                    <p class="text-gray-500">Adicione o link ou faça o upload direto do arquivo. Suportamos diversos
+                        formatos e tamanhos para facilitar sua vida.</p>
                 </div>
 
                 <!-- Step 2 -->
                 <div class="relative text-center">
-                    <div class="w-24 h-24 mx-auto bg-white border-4 border-pink-50 shadow-sm rounded-full flex items-center justify-center mb-6 relative">
-                        <div class="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center text-secondary relative overflow-hidden">
-                            <svg class="w-8 h-8 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"></path></svg>
+                    <div
+                        class="w-24 h-24 mx-auto bg-white border-4 border-pink-50 shadow-sm rounded-full flex items-center justify-center mb-6 relative">
+                        <div
+                            class="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center text-secondary relative overflow-hidden">
+                            <svg class="w-8 h-8 relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z">
+                                </path>
+                            </svg>
                         </div>
-                        <div class="absolute -top-2 -right-2 w-8 h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-md">2</div>
+                        <div
+                            class="absolute -top-2 -right-2 w-8 h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-md">
+                            2</div>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-2">Processamento de IA</h3>
-                    <p class="text-gray-500">O backend entra em ação. Nossa IA transcreve, analisa e modela o conhecimento chave contido no material do vídeo.</p>
+                    <p class="text-gray-500">O backend entra em ação. Nossa IA transcreve, analisa e modela o
+                        conhecimento chave contido no material do vídeo.</p>
                 </div>
 
                 <!-- Step 3 -->
                 <div class="relative text-center">
-                    <div class="w-24 h-24 mx-auto bg-white border-4 border-emerald-50 shadow-sm rounded-full flex items-center justify-center mb-6 relative">
-                        <div class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <div
+                        class="w-24 h-24 mx-auto bg-white border-4 border-emerald-50 shadow-sm rounded-full flex items-center justify-center mb-6 relative">
+                        <div
+                            class="w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center text-emerald-600">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
                         </div>
-                        <div class="absolute -top-2 -right-2 w-8 h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-md">3</div>
+                        <div
+                            class="absolute -top-2 -right-2 w-8 h-8 bg-gray-900 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-md">
+                            3</div>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-2">Desafios Prontos</h3>
-                    <p class="text-gray-500">Valide o aprendizado dos seus usuários com questões de múltipla escolha, verdadeiro/falso e desafios práticos, tudo gerado magicamente.</p>
+                    <p class="text-gray-500">Valide o aprendizado dos seus usuários com questões de múltipla escolha,
+                        verdadeiro/falso e desafios práticos, tudo gerado magicamente.</p>
                 </div>
             </div>
         </div>
@@ -173,7 +185,8 @@
             <div class="flex flex-col md:flex-row justify-between items-center gap-6">
                 <div class="flex items-center gap-2">
                     <span class="text-xl font-bold text-white tracking-tight">
-                        Desaf<span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">IAr</span>
+                        Desaf<span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">IAr</span>
                     </span>
                 </div>
                 <div class="flex space-x-6">
@@ -188,4 +201,5 @@
         </div>
     </footer>
 </body>
+
 </html>
