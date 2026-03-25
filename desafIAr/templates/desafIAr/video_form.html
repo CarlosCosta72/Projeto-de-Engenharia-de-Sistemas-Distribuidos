@@ -74,11 +74,11 @@
                         transcrevê-lo e gerar os desafios automaticamente.</p>
                 </div>
 
-                <form class="p-6 sm:p-8 space-y-6" action="/video" method="GET">
-                    <!-- Link do Video -->
+                <form class="p-6 sm:p-8 space-y-6" action="{% url 'video_form' %}" method="POST">
+                    {% csrf_token %}
+    
                     <div>
-                        <label for="video_url" class="block text-sm font-semibold text-gray-700">Link do Vídeo (YouTube,
-                            Vimeo, etc)</label>
+                        <label for="video_url" class="block text-sm font-semibold text-gray-700">Link do Vídeo (YouTube, Vimeo, etc)</label>
                         <div class="mt-2 relative rounded-md shadow-sm">
                             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                 <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor"

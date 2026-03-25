@@ -66,7 +66,7 @@
                 </h1>
 
                 <p class="mt-6 max-w-2xl mx-auto text-base text-gray-500 sm:text-lg md:text-xl">
-                    Faça o upload do seu conteúdo. Nossa Inteligência Artificial no backend analisa o vídeo, extrai o
+                    Faça o upload do seu conteúdo. Nossa Inteligência Artificial analisa o vídeo, extrai o
                     contexto e gera instantaneamente perguntas, quizzes e desafios para turbinar a sua plataforma.
                 </p>
 
@@ -81,7 +81,7 @@
                         </svg>
                         Cadastrar Novo Vídeo
                     </a>
-                    <a href="{% url 'video_detail' 1 %}"
+                    <a href="{% url 'video_detail' %}"
                         class="w-full sm:w-auto mt-3 sm:mt-0 flex items-center justify-center px-8 py-3 border border-gray-300 text-base font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 md:py-4 md:text-lg md:px-10 transition-all duration-200">
                         Listar videos
                     </a>
@@ -129,8 +129,7 @@
                             1</div>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-2">Upload do Vídeo</h3>
-                    <p class="text-gray-500">Adicione o link ou faça o upload direto do arquivo. Suportamos diversos
-                        formatos e tamanhos para facilitar sua vida.</p>
+                    <p class="text-gray-500">Adicione o link do video para facilitar sua vida.</p>
                 </div>
 
                 <!-- Step 2 -->
@@ -151,7 +150,7 @@
                             2</div>
                     </div>
                     <h3 class="text-xl font-bold text-gray-900 mb-2">Processamento de IA</h3>
-                    <p class="text-gray-500">O backend entra em ação. Nossa IA transcreve, analisa e modela o
+                    <p class="text-gray-500">Nossa IA transcreve, analisa e modela o
                         conhecimento chave contido no material do vídeo.</p>
                 </div>
 
