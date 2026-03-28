@@ -1,7 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import Video
+import os
+import json
+from dotenv import load_dotenv
+from .scripts.agentes import agente_transcritor, agente_gerador_desafios
 from .scripts.obter_titulo import obter_titulo_youtube
+from .models import Video, Desafio
 
 def home(request):
     return render(request, 'desafIAr/home.html')
@@ -31,12 +35,15 @@ def video_form(request):
         
         titulo_oficial = obter_titulo_youtube(video_url)
 
+        transcricao_video = agente_transcritor(video_url)
+
+        agente_gerador_desafios(transcricao_video)
+
         video = Video.objects.create(
             url=video_url,
             titulo=titulo_oficial,
+            transcricao=transcricao_video,
         )
-
-        video.save()
 
         messages.success(
             request,
