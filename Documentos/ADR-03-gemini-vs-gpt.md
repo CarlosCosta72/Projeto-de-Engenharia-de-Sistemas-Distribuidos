@@ -161,7 +161,15 @@ Razão simplificada: melhor equilíbrio entre latência, custo e qualidade para 
 
 ### ⚠️ Negativas (Trade-offs)
 
-<!-- ADICIONAR TRADE-OFFS-->
+1. **Leve Redução na Acurácia Semântica**
+   - Embora o tempo de resposta seja muito superior, os benchmarks demonstraram que o Gemini 2.5 Flash possui um score de precisão ligeiramente inferior ao GPT-4o em contextos muito específicos ou de alta complexidade.
+
+2. **Acoplamento (Vendor Lock-in) com Formatação Específica**
+   - Ao aproveitar o JSON mode nativo do Gemini, o código do worker acaba ficando acoplado à estrutura de resposta e às bibliotecas específicas da Google (Vertex AI / Google Generative AI). 
+   Mudar para outra LLM no futuro exigirá refatoração na camada de extração de dados.
+
+3. **Maturidade da Documentação e Comunidade**
+   - Por ser um modelo e uma API mais recentes em comparação com o ecossistema da OpenAI, a resolução de casos de borda e a busca por soluções em fóruns da comunidade podem levar mais tempo durante o desenvolvimento.
 
 
 ---

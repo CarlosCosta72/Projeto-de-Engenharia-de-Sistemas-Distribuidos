@@ -7,7 +7,7 @@
 
 **Data**: 29-03-2026  
 **Autor**: @kalil-teotonio  
-**Revisor**: @igor-wanderley  
+**Revisor**: @igor-wanderley
 **Implementado em**: 28-03-2026  
 
 ---
@@ -168,7 +168,15 @@ O preenchimento do pool de desafios **depende de uma API externa de IA** (OpenAI
 
 ### ⚠️ Negativas (Trade-offs)
 
-<!-- ADICIONAR TRADE-OFFS-->
+1. **Perda Temporária do Valor Core (Degradação de UX)**
+   - Quando o disjuntor está no estado OPEN, o sistema faz o fallback e serve perguntas genéricas do banco estático (PostgreSQL).
+   Isso significa que, temporariamente, a plataforma perde sua principal proposta de valor, que é a geração de perguntas com contexto direto sobre o vídeo assistido.
+
+2. **Complexidade de Calibração (Tuning)**
+   - Definir os limites corretos para a máquina de estados (ex: quantos erros disparam o estado OPEN, ou qual o tempo exato do timeout para o HALF_OPEN) exige testes rigorosos. Se o limite for muito sensível, o disjuntor abrirá sem necessidade; se for muito tolerante, o sistema travará antes de reagir.
+
+3. **Falsos Positivos em Picos de Tráfego**
+   - Oscilações rápidas de rede ou rate limits momentâneos da API da LLM podem acionar o Circuit Breaker prematuramente, degradando a experiência de vários usuários por um erro que duraria apenas poucos segundos.
 
 ---
 

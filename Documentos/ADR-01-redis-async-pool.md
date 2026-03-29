@@ -7,7 +7,7 @@
 
 **Data**: 29-03-2026  
 **Autor**: @arthur-vieira  
-**Revisor**: @joas-gomes  
+**Revisor**: @joas-gomes
 **Implementado em**: 28-03-2026  
 
 ---
@@ -148,8 +148,16 @@ Depois: HTTP request → Enqueue → Response (1-2s) ✅
    - Métricas de worker performance
 
 ### ⚠️ Negativas (Trade-offs)
+1. **Aumento da Complexidade Operacional**
+   - [cite_start]A arquitetura deixa de ser monolítica e passa a exigir o gerenciamento e monitoramento de novos componentes de infraestrutura (o serviço do Redis e o processo do Celery Worker)[cite: 90, 91].
+   - Dificulta o processo de depuração (debugging) local e em produção, já que os erros podem ocorrer silenciosamente no background.
 
-<!-- ADICIONAR TRADE-OFFS-->
+2. **Consistência Eventual (Eventual Consistency)**
+   - Ao solicitar um vídeo totalmente novo que ainda não está no pool, o usuário precisará aguardar o ciclo de processamento do worker.
+   - Existe o risco de dessincronização: se o worker falhar silenciosamente, a fila no Redis pode crescer e os usuários não receberão os novos desafios esperados.
+
+3. **Consumo Adicional de Recursos**
+   - O Redis opera em memória (RAM), exigindo provisionamento adequado de infraestrutura para evitar que o servidor sofra com falta de memória em picos de uso.
 
 ---
 
