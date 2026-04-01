@@ -22,7 +22,12 @@ services:
   # API Principal
   api:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: >
+      bash -c "python manage.py makemigrations &&
+               python manage.py migrate &&
+               python manage.py loaddata desafios_genericos.json &&
+               python manage.py shell -c \"from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.filter(username='admin').exists() or User.objects.create_superuser('admin', 'admin@example.com', 'admin')\" &&
+               python manage.py runserver 0.0.0.0:8000"
     volumes:
       - .:/app
     ports:
@@ -34,19 +39,19 @@ services:
       - db
       - redis
 
-  # Worker Assíncrono
   worker:
     build: .
-    command: celery -A core worker --loglevel=info
+    command: celery -A projeto worker --loglevel=info
     volumes:
       - .:/app
     environment:
       - CELERY_BROKER_URL=redis://redis:6379/0
-      - DATABASE_URL=postgres://admin:adminpassword@db:5432/desafios_db
-      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - DATABASE_URL=postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
     depends_on:
       - db
       - redis
+      - api
 
 volumes:
   postgres_data:

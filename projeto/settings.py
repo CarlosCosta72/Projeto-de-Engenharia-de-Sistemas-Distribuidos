@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 from pathlib import Path
 from dotenv import load_dotenv
 import os
+from urllib.parse import urlparse
 
 load_dotenv()
 
@@ -77,13 +78,31 @@ WSGI_APPLICATION = 'projeto.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# (Certifique-se de que BASE_DIR já está definido no topo do seu settings.py)
 
+database_url = os.environ.get('DATABASE_URL')
+
+if database_url:
+    # Se estiver rodando no Docker e achar a DATABASE_URL, usa o PostgreSQL
+    url = urlparse(database_url)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': url.path[1:], # Tira a barra inicial do nome do banco
+            'USER': url.username,
+            'PASSWORD': url.password,
+            'HOST': url.hostname, # Vai pegar automaticamente o 'db' do docker-compose
+            'PORT': url.port,
+        }
+    }
+else:
+    # Fallback de segurança: se você rodar o projeto fora do Docker, ele cria o SQLite
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
@@ -120,3 +139,55 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# Puxa a URL do Redis do docker-compose. Se não encontrar (ex: rodando fora do Docker), usa localhost
+CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL', 'redis://localhost:6379/0')
+
+# O backend de resultados precisa apontar para o mesmo lugar!
+CELERY_RESULT_BACKEND = CELERY_BROKER_URL
+
+# Configurações opcionais
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'America/Sao_Paulo'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+        'arquivo': {
+            'class': 'logging.FileHandler',
+            'filename': 'logs/django.log',
+            'formatter': 'verbose',
+        },
+    },
+
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'arquivo'],
+            'level': 'INFO',
+        },
+        'desafIAr': {           # logger específico da sua app
+            'handlers': ['console', 'arquivo'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    },
+}

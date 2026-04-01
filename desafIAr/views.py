@@ -1,68 +1,61 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
-import os
-import re
-import json
-from dotenv import load_dotenv
-from .scripts.agentes import agente_transcritor, agente_gerador_desafios
-from .scripts.obter_titulo import obter_titulo_youtube
-from .scripts.utils import salvar_desafios_no_banco, get_youtube_embed
-from .models import Video, Desafio
 from django.http import JsonResponse
+import re
+import redis
+import json
+from .models import Video, Desafio
+from .scripts.obter_titulo import obter_titulo_youtube
+from .scripts.utils import get_youtube_embed
+from .tasks import processar_video_assincrono
+import os
+
+# Conexão com o Redis
+host_redis = os.environ.get('REDIS_HOST', 'redis')
+
+cache = redis.Redis(host=host_redis, port=6379, db=0, decode_responses=True)
 
 def home(request):
     return render(request, 'desafIAr/home.html')
-
 
 def video_form(request):
     if request.method == 'POST':
         video_url_bruta = request.POST.get('video_url')
 
-        # 1. LIMPEZA DA URL (Extrai o ID de 11 caracteres do YouTube)
+        # Limpeza da URL
         match = re.search(r'(?:v=|\/)([0-9A-Za-z_-]{11}).*', video_url_bruta)
         if match:
-            video_id = match.group(1)
-            # Reconstrói a URL no formato mais limpo possível
-            video_url = f"https://www.youtube.com/watch?v={video_id}"
+            video_url = f"https://www.youtube.com/watch?v={match.group(1)}"
         else:
-            video_url = video_url_bruta # Fallback caso o Regex falhe
+            video_url = video_url_bruta
+
+        video_existente = Video.objects.filter(url=video_url).first()
+        
+        if video_existente:
+            # Envia a mensagem de aviso
+            messages.error(request, 'Este vídeo já está cadastrado no sistema!')
+            # Redireciona diretamente para a página do vídeo que já existe
+            return redirect('video_form')
 
         titulo = obter_titulo_youtube(video_url)
         
-        # 1. SALVA O VÍDEO PRIMEIRO
-        # Cria o registro no banco para gerar o ID. A transcrição fica vazia ou com um aviso temporário.
+        # Cria o vídeo com status pendente
         novo_video = Video.objects.create(
             url=video_url,
             titulo=titulo,
-            transcricao="Processando transcrição..." 
+            transcricao="A IA está a processar o vídeo em background. Os desafios ficarão disponíveis em breve!" 
         )
         
-        # 2. RODA O AGENTE TRANSCRITOR
-        # A IA assiste ao vídeo e devolve o texto
-        texto_transcrito = agente_transcritor(video_url)
+        # MÁGICA DO CELERY: Manda o trabalho pesado para background e liberta o servidor imediatamente
+        processar_video_assincrono.delay(novo_video.id, video_url)
         
-        # 3. ATUALIZA O BANCO COM A TRANSCRIÇÃO REAL
-        novo_video.transcricao = texto_transcrito
-        novo_video.save()
-        
-        # 4. GERA OS DESAFIOS
-        # Agora passamos o ID numérico correto e a transcrição finalizada
-        salvar_desafios_no_banco(novo_video.id, novo_video.transcricao)
-        
-        # 5. REDIRECIONA PARA A TELA DO VÍDEO
         return redirect('video_detail', pk=novo_video.id)
         
     return render(request, 'desafIAr/video_form.html')
 
-
 def video_detail(request, pk=None):
     video = get_object_or_404(Video, pk=pk)
-    
-    # Para o YouTube rodar no site, a URL precisa ter '/embed/' em vez de '/watch?v='
-    # Ex: https://www.youtube.com/embed/SEU_ID
     url_embed = get_youtube_embed(video.url)
-
-    print("esta é a url:", url_embed)
     
     context = {
         'video': video,
@@ -70,21 +63,46 @@ def video_detail(request, pk=None):
     }
     return render(request, 'desafIAr/video_detail.html', context)
 
-# View para o AJAX (Não recarrega a página)
 def carregar_desafio(request, pk):
-    # Pega um desafio aleatório deste vídeo do banco estático (Seu Fallback)
-    # Na POC final, você vai dar um 'rpop' no Redis aqui antes de ir pro banco!
-    desafio = Desafio.objects.filter(video_id=pk).order_by('?').first()
+    nome_fila = f"pool_desafios_video_{pk}"
+    # Pega os IDs que o front-end avisa que já mostrou
+    ids_vistos = request.GET.getlist('vistos[]')
     
-    if desafio:
+    # 1. TENTA CONSUMIR DO POOL (REDIS) PRIMEIRO - Latência Zero
+    desafio_redis = cache.rpop(nome_fila)
+    
+    if desafio_redis:
+        dados = json.loads(desafio_redis)
+        dados['origem'] = 'Pool IA (Redis)'
+        return JsonResponse(dados)
+        
+    # 2. FALLBACK NÍVEL 1: BANCO ESTÁTICO (Perguntas específicas do vídeo)
+    desafio_banco = Desafio.objects.filter(video_id=pk).exclude(id__in=ids_vistos).order_by('?').first()
+    
+    if desafio_banco:
         return JsonResponse({
-            'pergunta': desafio.pergunta,
-            'opcoes': desafio.opcoes, # Retorna a lista de 4 strings nativamente
-            'resposta_correta': desafio.resposta_correta
+            'id': desafio_banco.id,
+            'pergunta': desafio_banco.pergunta,
+            'opcoes': desafio_banco.opcoes,
+            'resposta_correta': desafio_banco.resposta_correta,
+            'origem': '🗄️ Fallback (PostgreSQL - Específico)'
         })
-    else:
-        return JsonResponse({'erro': 'Nenhum desafio no pool'}, status=404)
 
+    # 3. FALLBACK NÍVEL 2: BANCO ESTÁTICO (Perguntas Genéricas - video=null)
+    # Busca apenas os desafios onde o vídeo não está preenchido
+    desafio_generico = Desafio.objects.filter(video__isnull=True).exclude(id__in=ids_vistos).order_by('?').first()
+    
+    if desafio_generico:
+        return JsonResponse({
+            'id': desafio_generico.id,
+            'pergunta': desafio_generico.pergunta,
+            'opcoes': desafio_generico.opcoes,
+            'resposta_correta': desafio_generico.resposta_correta,
+            'origem': '🛡️ Fallback Extremo (PostgreSQL - Genérico)'
+        })
+        
+    # 4. EXAUSTÃO TOTAL
+    return JsonResponse({'erro': 'O sistema esgotou todas as perguntas possíveis!'}, status=404)
 
 def video_list(request):
     videos = Video.objects.all()
