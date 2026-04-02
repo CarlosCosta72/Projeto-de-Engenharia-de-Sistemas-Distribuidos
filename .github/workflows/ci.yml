@@ -1,0 +1,47 @@
+name: CI Pipeline - desafIAr
+
+on:
+  push:
+    
+  pull_request:
+    branches:
+        - main
+
+jobs:
+  build-and-test:
+    name: Integracao Continua
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Baixa o seu código
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      # 2. Cria um .env fake
+      - name: Configurar Variáveis de Ambiente
+        run: |
+          echo "POSTGRES_DB=test_db" >> .env
+          echo "POSTGRES_USER=test_user" >> .env
+          echo "POSTGRES_PASSWORD=test_pass" >> .env
+          echo "GEMINI_API_KEY=chave_falsa_para_teste" >> .env
+
+      # 3. Build dos containers
+      - name: Build da infraestrutura (Docker Compose)
+        run: docker compose build
+
+      # 4. Sobe os serviços
+      - name: Subir serviços em background
+        run: docker compose up -d
+
+      # 5. Aguarda serviços
+      - name: Aguardar prontidão dos serviços
+        run: sleep 15
+
+      # 6. Executa testes
+      - name: Executar testes automatizados
+        run: docker compose exec -T api python manage.py test
+
+      # 7. Derruba tudo
+      - name: Derrubar infraestrutura
+        if: always()
+        run: docker compose down -v
