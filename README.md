@@ -84,3 +84,4 @@ Para parar os serviços:
 ```
 docker-compose down
 ```
+Link oara o vídeo: https://drive.google.com/drive/folders/1iXPw-ZQcf6t4IYPNiFubszOCy56d29MI?usp=sharing
