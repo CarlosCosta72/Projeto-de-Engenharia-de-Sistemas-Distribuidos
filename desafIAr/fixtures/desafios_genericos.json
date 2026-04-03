@@ -1,0 +1,172 @@
+[
+    {
+        "model": "desafIAr.desafio",
+        "pk": 1001,
+        "fields": {
+            "video": null,
+            "pergunta": "Qual é a taxa de quadros (FPS) mais comumente usada na indústria para dar um aspecto 'cinematográfico' a um vídeo?",
+            "opcoes": [
+                "60 quadros por segundo",
+                "15 quadros por segundo",
+                "24 quadros por segundo",
+                "120 quadros por segundo"
+            ],
+            "resposta_correta": "24 quadros por segundo",
+            "data_criacao": "2026-04-01T17:18:00Z",
+            "data_atualizacao": "2026-04-01T17:18:00Z"
+        }
+    },
+    {
+        "model": "desafIAr.desafio",
+        "pk": 1002,
+        "fields": {
+            "video": null,
+            "pergunta": "No contexto de plataformas de vídeo, o que significa a sigla 'HD' nas configurações de qualidade?",
+            "opcoes": [
+                "Heavy Data",
+                "High Definition (Alta Definição)",
+                "Hyper Display",
+                "Hardware Driven"
+            ],
+            "resposta_correta": "High Definition (Alta Definição)",
+            "data_criacao": "2026-04-01T17:18:00Z",
+            "data_atualizacao": "2026-04-01T17:18:00Z"
+        }
+    },
+    {
+        "model": "desafIAr.desafio",
+        "pk": 1003,
+        "fields": {
+            "video": null,
+            "pergunta": "Em produção e edição de vídeo, o que é conhecido como 'B-roll'?",
+            "opcoes": [
+                "A câmera principal usada para gravar o apresentador",
+                "Cenas suplementares ou alternativas usadas para enriquecer a narrativa visual",
+                "Um erro de gravação (blooper)",
+                "O rolo de filme descartado na edição"
+            ],
+            "resposta_correta": "Cenas suplementares ou alternativas usadas para enriquecer a narrativa visual",
+            "data_criacao": "2026-04-01T17:18:00Z",
+            "data_atualizacao": "2026-04-01T17:18:00Z"
+        }
+    },
+    {
+        "model": "desafIAr.desafio",
+        "pk": 1004,
+        "fields": {
+            "video": null,
+            "pergunta": "Qual é a proporção de tela (aspect ratio) padrão e mais comum para vídeos modernos no YouTube em computadores e TVs?",
+            "opcoes": [
+                "4:3",
+                "1:1",
+                "9:16",
+                "16:9"
+            ],
+            "resposta_correta": "16:9",
+            "data_criacao": "2026-04-01T17:18:00Z",
+            "data_atualizacao": "2026-04-01T17:18:00Z"
+        }
+    },
+    {
+        "model": "desafIAr.desafio",
+        "pk": 1005,
+        "fields": {
+            "video": null,
+            "pergunta": "O que é uma 'Thumbnail' no contexto de consumo de vídeos na internet?",
+            "opcoes": [
+                "Uma marca d'água de proteção contra cópias",
+                "A imagem em miniatura que serve como capa convidativa para o vídeo",
+                "O resumo em texto que fica na descrição",
+                "O botão de pular anúncios"
+            ],
+            "resposta_correta": "A imagem em miniatura que serve como capa convidativa para o vídeo",
+            "data_criacao": "2026-04-01T17:18:00Z",
+            "data_atualizacao": "2026-04-01T17:18:00Z"
+        }
+    },
+    {
+        "model": "desafIAr.desafio",
+        "pk": 1006,
+        "fields": {
+            "video": null,
+            "pergunta": "Para que serve principalmente a função de 'Closed Captions' (CC) em um reprodutor de vídeo?",
+            "opcoes": [
+                "Bloquear o vídeo para menores de idade",
+                "Exibir legendas com a transcrição do áudio e descrições de efeitos sonoros",
+                "Fechar o vídeo automaticamente ao final da reprodução",
+                "Melhorar a qualidade da cor da imagem"
+            ],
+            "resposta_correta": "Exibir legendas com a transcrição do áudio e descrições de efeitos sonoros",
+            "data_criacao": "2026-04-01T17:18:00Z",
+            "data_atualizacao": "2026-04-01T17:18:00Z"
+        }
+    },
+    {
+        "model": "desafIAr.desafio",
+        "pk": 1007,
+        "fields": {
+            "video": null,
+            "pergunta": "O que descreve melhor a técnica de edição conhecida como 'Jump Cut' (Corte Seco)?",
+            "opcoes": [
+                "Uma transição suave usando desfoque (blur)",
+                "Um corte abrupto que avança no tempo dentro de uma mesma cena, muitas vezes causando um pequeno 'salto' visual",
+                "Quando o vídeo pula automaticamente para o próximo na playlist",
+                "Sincronizar uma batida musical com o fim do vídeo"
+            ],
+            "resposta_correta": "Um corte abrupto que avança no tempo dentro de uma mesma cena, muitas vezes causando um pequeno 'salto' visual",
+            "data_criacao": "2026-04-01T17:18:00Z",
+            "data_atualizacao": "2026-04-01T17:18:00Z"
+        }
+    },
+    {
+        "model": "desafIAr.desafio",
+        "pk": 1008,
+        "fields": {
+            "video": null,
+            "pergunta": "Em vídeos da internet, o que é um 'Call to Action' (CTA)?",
+            "opcoes": [
+                "Um efeito especial de explosão",
+                "Um pedido direto do criador para o espectador realizar uma ação, como se inscrever ou curtir o vídeo",
+                "A trilha sonora usada em cenas de ação",
+                "O algoritmo de recomendação do YouTube"
+            ],
+            "resposta_correta": "Um pedido direto do criador para o espectador realizar uma ação, como se inscrever ou curtir o vídeo",
+            "data_criacao": "2026-04-01T17:18:00Z",
+            "data_atualizacao": "2026-04-01T17:18:00Z"
+        }
+    },
+    {
+        "model": "desafIAr.desafio",
+        "pk": 1009,
+        "fields": {
+            "video": null,
+            "pergunta": "Qual é a principal função da iluminação conhecida como 'Key Light' (Luz Principal) em uma gravação padrão?",
+            "opcoes": [
+                "Ser a fonte primária e mais forte de iluminação do sujeito",
+                "Iluminar apenas o fundo verde (Chroma Key)",
+                "Criar uma silhueta totalmente escura",
+                "Dar cor apenas aos cabelos do apresentador"
+            ],
+            "resposta_correta": "Ser a fonte primária e mais forte de iluminação do sujeito",
+            "data_criacao": "2026-04-01T17:18:00Z",
+            "data_atualizacao": "2026-04-01T17:18:00Z"
+        }
+    },
+    {
+        "model": "desafIAr.desafio",
+        "pk": 1010,
+        "fields": {
+            "video": null,
+            "pergunta": "O que caracteriza o formato de vídeo conhecido como 'Vlog'?",
+            "opcoes": [
+                "Um documentário longo de orçamento milionário",
+                "Um blog em formato de vídeo, geralmente mostrando a rotina, viagens ou opiniões pessoais do criador de forma casual",
+                "Uma transmissão ao vivo de jogos digitais",
+                "Um vídeo focado exclusivamente em resenhas de produtos eletrônicos"
+            ],
+            "resposta_correta": "Um blog em formato de vídeo, geralmente mostrando a rotina, viagens ou opiniões pessoais do criador de forma casual",
+            "data_criacao": "2026-04-01T17:18:00Z",
+            "data_atualizacao": "2026-04-01T17:18:00Z"
+        }
+    }
+]

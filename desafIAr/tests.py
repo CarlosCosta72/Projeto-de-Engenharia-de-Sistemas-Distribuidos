@@ -1,5 +1,6 @@
 import json
 from unittest.mock import patch, MagicMock
+import logging
 
 from django.test import TestCase, Client
 from django.urls import reverse
@@ -51,8 +52,9 @@ class UtilTests(TestCase):
         titulo = obter_titulo_youtube("https://www.youtube.com/watch?v=abc123def45")
         self.assertEqual(titulo, "Vídeo de teste")
 
+    @patch("builtins.print")
     @patch("desafIAr.scripts.obter_titulo.requests.get")
-    def test_obter_titulo_youtube_failure(self, mock_get):
+    def test_obter_titulo_youtube_failure(self, mock_get, mock_print): # <-- O detalhe está aqui na adição do mock_print!
         mock_get.side_effect = Exception("Rede indisponível")
         titulo = obter_titulo_youtube("https://www.youtube.com/watch?v=abc123def45")
         self.assertEqual(titulo, "Vídeo em Processamento")
@@ -61,6 +63,7 @@ class UtilTests(TestCase):
 class ViewTests(TestCase):
     def setUp(self):
         self.client = Client()
+        logging.getLogger('django.request').setLevel(logging.ERROR)
 
     @patch("desafIAr.views.obter_titulo_youtube", return_value="Título mock")
     @patch("desafIAr.views.processar_video_assincrono")

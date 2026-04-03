@@ -12,12 +12,18 @@ class Video(models.Model):
         return self.titulo
 
 
+
 class Desafio(models.Model):
-    video = models.ForeignKey(Video, on_delete=models.CASCADE, related_name='desafios', null=True, blank=True)
-    titulo = models.CharField(max_length=100)
-    descricao = models.TextField()
+    video = models.ForeignKey('Video', on_delete=models.CASCADE, related_name='desafios', null=True, blank=True)
+    
+    # Novos campos mapeados diretamente do JSON da IA
+    pergunta = models.TextField()
+    opcoes = models.JSONField()  # Salvará a lista de 4 strings perfeitamente
+    resposta_correta = models.CharField(max_length=255)
+    
     data_criacao = models.DateTimeField(auto_now_add=True)
     data_atualizacao = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.titulo
+        # Mostra os primeiros 50 caracteres da pergunta no painel Admin
+        return f"{self.pergunta[:50]}..."

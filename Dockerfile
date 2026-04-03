@@ -1,5 +1,5 @@
 # Usa uma imagem oficial e leve do Python
-FROM python:3.11-slim
+FROM python:3.12-slim
 
 # Define o diretório de trabalho dentro do container
 WORKDIR /app
@@ -15,7 +15,8 @@ RUN apt-get update \
 
 # Instala os pacotes base do nosso stack (Django, Celery, Redis e o driver do Postgres)
 RUN pip install --upgrade pip
-RUN pip install django celery redis psycopg2-binary
+COPY requirements.txt /app/
+RUN pip install -r requirements.txt
 
 # Copia o resto do código do seu projeto para dentro do container
 COPY . /app/

@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visualização do Vídeo - DesafIAr</title>
-    <!-- Carregando Tailwind via CDN para prototipação rápida -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -24,11 +23,9 @@
 <body
     class="bg-gray-50 font-sans text-gray-900 antialiased selection:bg-primary selection:text-white flex flex-col min-h-screen">
 
-    <!-- Navbar -->
     <nav class="bg-white shadow-sm border-b border-gray-100 flex-none sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
-                <!-- Logo -->
                 <div class="flex items-center">
                     <a href="/" class="flex-shrink-0 flex items-center gap-2">
                         <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24"
@@ -43,7 +40,6 @@
                         </span>
                     </a>
                 </div>
-                <!-- Links -->
                 <div class="flex items-center space-x-4 sm:space-x-8">
                     <a href="/novo"
                         class="text-sm font-medium text-primary hover:text-indigo-700 transition flex items-center gap-1">
@@ -58,11 +54,9 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
     <main class="flex-grow py-6 sm:py-8 bg-gray-50/50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-            <!-- Breadcrumb -->
             <nav class="flex mb-6" aria-label="Breadcrumb">
                 <ol class="inline-flex items-center space-x-1 md:space-x-3">
                     <li class="inline-flex items-center">
@@ -90,35 +84,17 @@
             </nav>
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
-                <!-- Video Player area -->
                 <div class="lg:col-span-2 flex flex-col space-y-6">
                     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden flex-none">
-                        <!-- Mockup Video Player -->
-                        <div class="aspect-video bg-gray-900 relative">
-                            <!-- Imagem de capa placeholder -->
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent z-10"></div>
-                            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
-                                alt="Video cover" class="w-full h-full object-cover opacity-80">
 
-                            <div class="absolute inset-0 z-20 flex items-center justify-center">
-                                <button
-                                    class="w-16 h-16 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center hover:scale-110 transition-transform duration-300 ring-1 ring-white/50 group shadow-xl">
-                                    <svg class="w-6 h-6 text-white ml-1 group-hover:text-primary transition-colors"
-                                        fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd"
-                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-                                            clip-rule="evenodd"></path>
-                                    </svg>
-                                </button>
-                            </div>
-
-                            <!-- Fake progress bar -->
-                            <div class="absolute bottom-0 left-0 right-0 z-20 h-1.5 bg-gray-800/50">
-                                <div class="h-full bg-primary w-1/3"></div>
-                            </div>
+                        <div class="aspect-video bg-gray-900 relative rounded-xl overflow-hidden shadow-sm">
+                            <iframe class="w-full h-full absolute inset-0" src="{{ url_embed }}"
+                                title="YouTube video player" frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                            </iframe>
                         </div>
 
-                        <!-- Video Info -->
                         <div class="p-6">
                             <div class="flex items-center gap-3 mb-3">
                                 <span
@@ -129,26 +105,13 @@
                                     </svg>
                                     IA Processada
                                 </span>
-                                <span class="text-sm text-gray-500 font-medium">15 min de duração • Adicionado há
-                                    pouco</span>
                             </div>
-                            <h1 class="text-2xl font-extrabold text-gray-900 mb-4 tracking-tight">Arquitetura de
-                                Sistemas Distribuídos Modernos</h1>
-                            <p class="text-gray-600 text-sm md:text-base leading-relaxed">
-                                Este vídeo apresenta os blocos de construção essenciais para a criação de sistemas
-                                distribuídos altamente disponíveis, escaláveis e tolerantes a falhas. Assista ao
-                                conteúdo e depois consolide seu aprendizado com os desafios gerados através da
-                                inteligência artificial à direita.
-                            </p>
-
-                            <hr class="my-6 border-gray-100">
-
-
+                            <h1 class="text-2xl font-extrabold text-gray-900 mb-4 tracking-tight">{{ video.titulo }}
+                            </h1>
                         </div>
                     </div>
                 </div>
 
-                <!-- Desafios Gerados Area -->
                 <div class="lg:col-span-1 flex flex-col">
                     <div
                         class="bg-white rounded-2xl shadow-sm border border-gray-100 p-5 sm:p-6 flex flex-col h-[600px] lg:h-auto lg:min-h-full sticky top-24">
@@ -165,88 +128,15 @@
                                 </h2>
                                 <p class="text-xs text-gray-500 mt-1">Gerados com base no conteúdo do vídeo</p>
                             </div>
-                            <span
-                                class="bg-indigo-50 text-primary text-xs font-bold px-2.5 py-1 rounded-md border border-indigo-100">3
-                                Itens</span>
+                            <button id="btn-novo-desafio"
+                                class="bg-primary text-white text-xs font-bold px-4 py-2 rounded-md hover:bg-indigo-700 transition">
+                                Novo Desafio
+                            </button>
                         </div>
 
-                        <div class="space-y-4 flex-grow overflow-y-auto pr-2 custom-scrollbar">
-                            <!-- Questão 1: Aberta/Interativa -->
-                            <div
-                                class="border-2 border-primary/20 rounded-xl p-4 bg-indigo-50/30 hover:bg-indigo-50/50 transition-colors cursor-pointer group shadow-sm">
-                                <div class="flex items-start justify-between mb-3">
-                                    <span
-                                        class="text-[10px] uppercase font-extrabold tracking-wider text-primary bg-white px-2 py-1 rounded shadow-sm">Questão
-                                        1</span>
-                                    <span
-                                        class="text-[10px] uppercase font-bold text-gray-500 bg-white border border-gray-200 px-2 py-1 rounded">Múltipla
-                                        Escolha</span>
-                                </div>
-                                <h3
-                                    class="text-sm font-semibold text-gray-900 mb-4 group-hover:text-primary transition-colors">
-                                    Qual a diferença fundamental entre Consistência Forte e Eventual?</h3>
-
-                                <ul class="space-y-2 mt-2">
-                                    <li
-                                        class="flex items-start p-2.5 rounded-lg bg-white border border-gray-200 hover:border-primary/50 text-sm text-gray-700 transition-colors shadow-sm">
-                                        <div
-                                            class="w-4 h-4 rounded-full border border-gray-300 mt-0.5 mr-3 flex-shrink-0 group-hover:border-primary/50">
-                                        </div>
-                                        <span class="leading-tight">A Forte não tolera falhas na rede de forma
-                                            alguma.</span>
-                                    </li>
-                                    <!-- A resposta certa selecionada (Mock) -->
-                                    <li
-                                        class="flex items-start p-2.5 rounded-lg bg-white border-2 border-green-500 text-sm text-gray-900 relative shadow-sm">
-                                        <div
-                                            class="w-4 h-4 rounded-full bg-green-500 mt-0.5 mr-3 flex-shrink-0 flex items-center justify-center">
-                                            <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M5 13l4 4L19 7"></path>
-                                            </svg>
-                                        </div>
-                                        <span class="leading-tight font-medium">Na Forte todos os nós veem o mesmo dado
-                                            simultaneamente.</span>
-                                        <div
-                                            class="absolute -right-2 -top-2 bg-green-500 text-white text-[10px] px-2 py-0.5 rounded shadow">
-                                            Certa</div>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <!-- Questão 2 -->
-                            <div
-                                class="border border-gray-200 rounded-xl p-4 bg-white hover:border-primary/40 transition-colors group shadow-sm">
-                                <div class="flex items-start justify-between mb-2">
-                                    <span
-                                        class="text-[10px] uppercase font-extrabold tracking-wider text-gray-500 bg-gray-100 px-2 py-1 rounded">Questão
-                                        2</span>
-                                </div>
-                                <h3 class="text-sm font-semibold text-gray-800 mb-4">No Teorema CAP, é impossível
-                                    garantir ao mesmo tempo:</h3>
-                                <button
-                                    class="w-full py-2.5 text-sm font-bold text-primary border-2 border-primary/20 rounded-lg hover:bg-primary hover:text-white transition-all">
-                                    Tentar Responder
-                                </button>
-                            </div>
-
-                            <!-- Questão 3 (Bloqueada) -->
-                            <div class="border border-gray-200 rounded-xl p-4 bg-gray-50 opacity-60">
-                                <div class="flex items-start justify-between mb-2">
-                                    <span
-                                        class="text-[10px] uppercase font-extrabold tracking-wider text-gray-400 bg-gray-100 px-2 py-1 rounded">Questão
-                                        3</span>
-                                    <svg class="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd"
-                                            d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                                            clip-rule="evenodd"></path>
-                                    </svg>
-                                </div>
-                                <h3 class="text-sm font-semibold text-gray-600 mb-2">Descreva um cenário ideal para
-                                    Cassandra.</h3>
-                                <p class="text-[10px] text-gray-400 font-bold uppercase text-center mt-4">Desbloqueia
-                                    após a Questão 2</p>
+                        <div id="container-desafio" class="space-y-4 flex-grow overflow-y-auto pr-2 custom-scrollbar">
+                            <div class="text-center text-gray-500 mt-10">
+                                <p>Clique em "Novo Desafio" para puxar uma pergunta do Pool.</p>
                             </div>
                         </div>
                     </div>
@@ -256,7 +146,6 @@
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="bg-gray-900 text-gray-400 py-8 border-t border-gray-800 flex-none mt-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-center gap-4">
@@ -274,7 +163,6 @@
     </footer>
 
     <style>
-        /* Estilizando o scrollbar dos desafios */
         .custom-scrollbar::-webkit-scrollbar {
             width: 4px;
         }
@@ -293,6 +181,105 @@
             background: #94a3b8;
         }
     </style>
+
+    <script>
+        // Pega o ID do vídeo do template do Django
+        const videoId = "{{ video.pk }}";
+        const btnNovo = document.getElementById('btn-novo-desafio');
+        const container = document.getElementById('container-desafio');
+
+        // Array para guardar os IDs do banco estático que já foram mostrados (para não repetir no fallback)
+        let desafiosVistos = [];
+
+        // Função que verifica a resposta (chamada quando o usuário clica numa opção)
+        function verificarResposta(botaoClicado, opcaoEscolhida, respostaCorreta) {
+            // Pega todos os botões de opção dentro do container atual
+            const botoesOpcoes = document.querySelectorAll('.opcao-btn');
+
+            // Desabilita todos os botões para impedir cliques duplos
+            botoesOpcoes.forEach(btn => {
+                btn.disabled = true;
+                btn.classList.remove('hover:border-primary/50'); // Tira o efeito de hover
+
+                // Mostra qual era a certa pintando de verde
+                if (btn.innerText.trim() === respostaCorreta.trim()) {
+                    btn.classList.add('bg-green-100', 'border-green-500', 'text-green-800');
+                    btn.classList.remove('bg-white', 'text-gray-700');
+                }
+            });
+
+            // Se o usuário errou, pinta o botão que ele clicou de vermelho
+            if (opcaoEscolhida.trim() !== respostaCorreta.trim()) {
+                botaoClicado.classList.add('bg-red-100', 'border-red-500', 'text-red-800');
+                botaoClicado.classList.remove('bg-white', 'text-gray-700');
+            }
+        }
+
+        btnNovo.addEventListener('click', function () {
+            // Estado de carregamento
+            btnNovo.innerText = "Buscando...";
+            btnNovo.disabled = true;
+
+            // Prepara a URL com os IDs que já vimos (útil para o fallback do banco não repetir)
+            let urlParams = new URLSearchParams();
+            desafiosVistos.forEach(id => urlParams.append('vistos[]', id));
+
+            // Faz a requisição
+            fetch(`/api/video/${videoId}/desafio/?${urlParams.toString()}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.erro) {
+                        container.innerHTML = `<p class="text-red-500 text-center mt-10">${data.erro}</p>`;
+                    } else {
+                        // Se veio do banco estático, guarda o ID
+                        if (data.id) desafiosVistos.push(data.id);
+
+                        let opcoesHtml = '';
+
+                        // Monta os botões injetando a função de verificação no onclick
+                        // Usamos escape para evitar problemas com aspas dentro do texto da opção
+                        data.opcoes.forEach(opcao => {
+                            const opcaoEscapada = opcao.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+                            const respostaCorretaEscapada = data.resposta_correta.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+
+                            opcoesHtml += `
+                                <button onclick="verificarResposta(this, '${opcaoEscapada}', '${respostaCorretaEscapada}')" 
+                                        class="opcao-btn w-full text-left p-3 rounded-lg bg-white border border-gray-200 hover:border-primary/50 text-sm text-gray-700 transition-colors shadow-sm mb-2">
+                                    ${opcao}
+                                </button>
+                            `;
+                        });
+
+                        // Se a view não enviar a origem (porque você ainda não pôs), define um padrão
+                        const origemTexto = data.origem || 'Origem Desconhecida';
+
+                        // Injeta o desafio na tela
+                        container.innerHTML = `
+                            <div class="border-2 border-primary/20 rounded-xl p-4 bg-indigo-50/30 shadow-sm">
+                                <div class="flex justify-between items-center mb-3">
+                                    <span class="text-[10px] uppercase font-bold text-primary bg-white px-2 py-1 rounded shadow-sm inline-block">Múltipla Escolha</span>
+                                    <span class="text-[10px] uppercase font-bold text-gray-600 bg-gray-200 px-2 py-1 rounded inline-block">${origemTexto}</span>
+                                </div>
+                                
+                                <h3 class="text-sm font-semibold text-gray-900 mb-4">${data.pergunta}</h3>
+                                
+                                <div class="space-y-2 mt-2">
+                                    ${opcoesHtml}
+                                </div>
+                            </div>
+                        `;
+                    }
+                })
+                .catch(error => {
+                    container.innerHTML = `<p class="text-red-500 text-center mt-10">Erro na conexão com o servidor.</p>`;
+                })
+                .finally(() => {
+                    // Volta o botão ao normal
+                    btnNovo.innerText = "Novo Desafio";
+                    btnNovo.disabled = false;
+                });
+        });
+    </script>
 </body>
 
 </html>

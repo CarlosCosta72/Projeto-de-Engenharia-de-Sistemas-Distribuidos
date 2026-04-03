@@ -7,4 +7,5 @@ urlpatterns = [
     path('video/', views.video_detail, name='video_detail'),
     path('lista/', views.video_list, name='video_list'),
     path('video/<int:pk>/', views.video_detail, name='video_detail'),
+    path('api/video/<int:pk>/desafio/', views.carregar_desafio, name='api_carregar_desafio'),
 ]
